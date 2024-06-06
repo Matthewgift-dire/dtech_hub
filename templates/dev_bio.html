@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dev-Bio{% endblock title %}
+
+{% block dev_bio_link %}
+{% endblock dev_bio_link %}
+
+{% block banner %}
+{% endblock banner %}
+
+{% block page_content %}
+        <div class="about_section layout_padding">
+         <div class="container">
+            <div class="row">
+               </div>
+               <div class="col-lg-4 col-sm-12">
+                  <div class="dev_img">
+                  	<img src="{% static 'images/dev_img.png' %}">
+                  </div>
+                  <h1 class="about_taital">Developer's Bio</h1>
+                  <p class="about_text mb-1">Matthew Gift, is an intermediate software engineer with a background<br>knowledge of python, python-django, html&css and bootstrap.</p>
+                  <p class="about_text mb-5">
+                  dtech-Hub is his biggest achievement so far, he believes in<br> improvement and works hard to get to the top.
+                  </p>                 
+               </div>
+            </div>
+         </div>
+      </div>
+{% endblock page_content %}
+
+{% block tag %}
+{% endblock tag %}
+
+{% block dev_bio_link_f %}
+{% endblock dev_bio_link_f %}

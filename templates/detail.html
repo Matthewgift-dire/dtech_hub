@@ -1,0 +1,97 @@
+<!--  blog/templates/blog/detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{post.title | slice:":20"}}{% endblock title %}
+
+{% block keywords %}{{post.meta_keywords}}{% endblock keywords %}
+{% block description %}{{post.meta_description}}{% endblock description %}
+
+{% block banner %}
+{% endblock banner %}
+
+{% block page_content %}
+ <div class="about_section layout_padding">
+ 	{% for category in post.categories.all %}
+ 	{% for tag in post.tag.all %}
+ 		<div class="container">
+			  <h5 class="fw-lighter" style="">Home > {{category.name}} > {{tag.name}}</h5>
+			</div>
+	{% endfor %}
+	{% endfor %}
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-8 col-sm-12">
+                  <h2 class="most_text">{{post.title}}</h2>
+                  <p class="post_text mb-4">
+		                  	<i class="fa-regular fa-clock mr-2"></i>{{ post.get_read_time }} min read
+		          </p>
+                  <div class="about_img"><img src="{{ post.cover_image }}"></div>
+                  {% for category in post.categories.all %}   
+                  <p class="post_text mt-4 mb-4">
+		                        {{ post.created_on.date }} | {{ category.name }}
+                  </p>
+                  {% endfor %}
+                   <p class="lorem_text">{{post.body}}</p>
+                   <div class="about_img mt-3"><img src="{{post.body_img}}"></div>
+                   <p class="lorem_text mt-3">{{post.body_two}}</p>
+                   <form method='post'>
+                   <h2 class="most_text">Leave a comment:</h2>
+                   {% csrf_token %}
+                   <div class="mb-3">
+                   	{{ form.author }}
+					</div>
+					<div class="mb-3">
+						{{ form.body }}
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+                   {% if comments %}
+                   <h2 class="most_text">Comments:</h2>
+                   {% for comment in comments %}
+                   <div class="email_text card mb-3" style="max-width: 540px;">
+					  <div class="row g-0">
+					    <div class="col-md-8">
+					      <div class="card-body">
+					        <h5 class="card-title">{{comment.author}} said:</h5>
+					        <p class="card-text text-primary">{{ comment.body }}</p>
+					        <p class="card-text text-primary"><small class="text-body-secondary">{{ comment.created_on.date |date:"D d M Y"}}</small></p>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+                   {% endfor %}
+                   {% endif %}
+         </div>
+       </div>
+     </div>
+     <div class="about_section layout_padding mb-4">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-4 col-sm-12">
+                  <div class="newsletter_main">
+                     <h1 class="recent_taital">Related post</h1>
+                     
+                     {% for post_ in posts %}
+                     {% for category_  in post_.categories.all%}
+                     {% for category in post.categories.all %}
+                     {% if category.name in category_.name %}
+                     <div class="recent_box">
+                        <div class="recent_left">
+                        <a href="{% url 'blog_detail' post_.pk %}">
+                           <div class="image_6"><img src="{{ post_.cover_image }}"></div>
+                        </div>
+                        <div class="recent_right">
+                           <h3 class="consectetur_text">{{ post_.title }}</h3>
+                       </a>
+                        </div>
+                     </div>
+                     {% endif %}
+                     {% endfor %}
+                     {% endfor %}
+                     {% endfor %}
+	                </div>
+               </div>
+            </div>
+         </div>
+      </div>
+{% endblock page_content %}

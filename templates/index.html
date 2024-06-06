@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{home}}{% endblock title %}
+{% block page_content %}
+		      <div class="about_section layout_padding">
+		      {% for post in featured_posts %}
+		         <div class="container">
+		            <div class="row">
+		               <div class="col-lg-8 col-sm-12">
+		                  <div class="about_img"><img src="{{ post.cover_image }}"></div>
+		                  {% for category in post.categories.all %}
+		                  <p class="post_text mt-4">
+				                        {{ post.created_on.date }} | {{ category.name }}
+		                  </p>
+		                  <p class="post_text">
+		                  	<i class="fa-regular fa-clock mr-2"></i>{{ post.get_read_time }} min read
+		                  </p>
+		                  {% endfor %}
+		                  <h2 class="most_text">{{post.title}}</h2>
+		                   <p class="lorem_text">{{ post.body | slice:":100" }}...</p>
+		                     <div class="read_bt mb-4"><a href="{% url 'blog_detail' post.pk %}">Read More</a></div>
+		               </div>
+		               {% endfor %}		               
+		         </div>
+		      </div>
+               <div class="col-lg-4 col-sm-12">
+                  <div class="newsletter_main">
+                     <h1 class="recent_taital">Recent post</h1>
+                     {% for post in posts %}
+                     <div class="recent_box">
+                        <div class="recent_left">
+                        
+                           <div class="image_6"><img src="{{ post.cover_image }}"></div>
+                        </div>
+                        <a href="{% url 'blog_detail' post.pk %}">
+                        <div class="recent_right">
+                           <h3 class="consectetur_text">{{ post.title }}</h3>
+                        </div>
+                   	</a>
+                     </div>
+                     </div>
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+         </div>
+      
+      <!-- recent section end --> 
+{% endblock page_content %}
+
+     

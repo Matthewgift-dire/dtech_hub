@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{{post.title | slice:":20"}}{% endblock title %}
+
+{% block banner %}
+{% endblock banner %}
+
+{% block page_content %}
+      <div class="about_section layout_padding">
+      <div class="container mb-4">
+			  <h5 class="fw-lighter" style="">Home > {{category}}</h5>
+			</div>
+      {% for post in posts %}
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-8 col-sm-12">
+                  <div class="about_img"><img src="{{ post.cover_image }}"></div>              
+                  <p class="post_text mt-4">
+                  {% for category in post.categories.all %}
+		                        {{ post.created_on.date }} | {{ category.name }}
+		          {% endfor %}
+                  </p>
+                  <p class="post_text">
+		                  	<i class="fa-regular fa-clock mr-2"></i>{{ post.get_read_time }} min read
+		                  </p>
+                  <h2 class="most_text">{{post.title}}</h2>
+                   <p class="lorem_text">{{ post.body | slice:":100" }}...</p>
+                     <div class="read_bt mb-4"><a href="{% url 'blog_detail' post.pk %}">Read More</a></div>
+               </div>
+               </div>
+               </div>
+               {% endfor %}
+               {% include "paginator.html" with page=posts %}
+         </div>
+      </div>
+      </div>
+      </div>
+{% endblock page_content %}
+      <!-- featured section end --> }
